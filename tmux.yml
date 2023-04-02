@@ -1,0 +1,9 @@
+- hosts: local
+  environment:
+    - http_proxy: "{{ http_proxy }}"
+    - https_proxy: "{{ http_proxy }}"
+  roles:
+    - tmux
+
+# usage: 
+#   wsl: sudo ansible-playbook -i hosts tmux.yml -e "http_proxy=${http_proxy}"

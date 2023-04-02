@@ -1,0 +1,46 @@
+- name: prepare
+  apt:
+    name:
+      - gcc
+      - automake
+      - libevent-dev
+      - ncurses-dev
+
+- name: git clone tmux
+  git:
+    repo: https://github.com/tmux/tmux.git
+    dest: /tmp/tmux
+    version: "3.3"
+
+- name: make tmux
+  shell: sh autogen.sh && ./configure && make
+  args:
+    chdir: /tmp/tmux/
+
+- name: install tmux
+  copy:
+    src: /tmp/tmux/tmux
+    dest: /usr/bin/tmux
+    remote_src: yes
+    mode: 0755
+
+- name: delete tmux tmp directory
+  ansible.builtin.file:
+    state: absent
+    path: /tmp/tmux/
+
+- name: mkdir ~/.tmux/plugins
+  file:
+    state: directory
+    path: /home/{{ ansible_ssh_user }}/.tmux/plugins
+
+- name: clone tmux extension
+  git:
+    repo: https://github.com/tmux-plugins/tpm 
+    dest: /home/{{ ansible_ssh_user }}/.tmux/plugins/tpm
+
+- name: copy config file
+  copy:
+    src: configs/tmux/tmux.conf
+    dest: /home/{{ ansible_ssh_user }}/.tmux.conf
+    remote_src: no

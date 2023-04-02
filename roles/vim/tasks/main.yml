@@ -1,0 +1,12 @@
+- name: Prepare packages
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - vim
+
+- name: copy config file
+  copy:
+    src: configs/vim/.vimrc
+    dest: /home/{{ ansible_ssh_user }}/.vimrc
+    remote_src: no
