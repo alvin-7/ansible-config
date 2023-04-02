@@ -1,5 +1,9 @@
 # 个人常用 ansible 脚本
 
+## 安装Ansible
+
+`apt install ansible`
+
 ## 快速开始
 
 ``` bash
