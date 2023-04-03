@@ -13,6 +13,8 @@ command W w !sudo tee % > /dev/null
 set scrolloff=7
 set wildmenu
 set cmdheight=2
+" set number
+set relativenumber
 
 " 智能处理退格键的功能
 set backspace=eol,start,indent
